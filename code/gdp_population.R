@@ -1,4 +1,4 @@
-#loading tidyverse
+#Script to analyze relationship between GDP and Life Expectancy
 library(tidyverse)
 
 #loading and naming gapminder_1997 data set
