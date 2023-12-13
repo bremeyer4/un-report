@@ -66,3 +66,5 @@ ggplot(data = gapminder_data) +
   geom_point() +
   scale_color_brewer(palette = "Set1") +
   labs( x ="Year", y = "Life Expectancy")
+
+ggsave("figures/gdpPercap_lifeExp.png")
