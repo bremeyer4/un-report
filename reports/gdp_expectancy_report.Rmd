@@ -10,22 +10,57 @@ date: "2023-12-14"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r packages}
+```{r packages, include=FALSE}
 library(tidyverse)
 ```
 
+# Introduction
+
 This report was prepared to the attention of the United Nation.
 
-```{r data}
+```{r data, include=FALSE}
 gapminder_1997 <- read_csv("gapminder_1997.csv")
 
 gapminder_1997
 ```
-```{r plot}
+
+## Plotting data
+```{r gdp_lifeexp_1997, echo=FALSE}
 ggplot(data = gapminder_1997) +
   aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
   geom_point() +
   labs(x = "GDP Per Capita", y = "Life Expectancy", title = "Do people live longer in weathly countries?",
        size = "Population (in millions)")
+```
+
+## Summary Tables
+
+```{r}
+nCountries <- gapminder_1997 %>% 
+  select(country) %>% 
+  n_distinct()
+
+minGDP <- gapminder_1997 %>% 
+  summarize(round(min(gdpPercap))) %>% 
+  pull()
+
+maxGDP <- gapminder_1997 %>% 
+  summarise(round(max(gdpPercap))) %>% 
+  pull()
+```
+
+|Summary of Data|
+|-------|-------|
+|Number of Countries|`r nCountries`|
+|Minimum GDP per capita|`r minGDP`|
+|Maximum GDP per capita|`r maxGDP`|
+
+```{r}
+library(knitr) #need to load library knitr for use of kable function
+
+gapminder_1997 %>% 
+  filter(continent == "Oceania") %>% 
+  select(-continent, -lifeExp) %>% 
+  kable()
 ```
 
