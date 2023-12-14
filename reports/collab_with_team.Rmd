@@ -10,6 +10,24 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
-gapminder <- read_csv("gapminder_data.csv")
+gapminder <- read_csv("../gapminder_data.csv")
+```
+```{r}
+ggplot(data = gapminder) +
+  aes(x = year, y = pop) +
+  geom_point() +
+  facet_wrap(vars(continent))
+```
+```{r}
+gapminder %>% 
+  filter(pop > 1e+09) %>% 
+  select(country) %>% 
+  unique()
+```
+```{r}
+gapminder %>% filter(country != "China" & country != "India") %>% 
+  ggplot(aes(x = year, y = pop)) +
+  geom_point() +
+  facet_wrap(vars(continent))
 ```
 
